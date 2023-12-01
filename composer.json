@@ -1,0 +1,22 @@
+{
+    "name": "hexlet/code",
+    "description": "second Hexlet project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Hexlet\\Code\\": "src/"
+        },
+        "files": [
+            
+        ]
+    },
+    "bin": ["bin/gendiff"],
+    "authors": [
+        {
+            "name": "Pavel Buryka"
+        }
+    ],
+    "require": {
+        "docopt/docopt": "^1.0"
+    }
+}
