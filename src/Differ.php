@@ -11,26 +11,30 @@ function generateDiff(mixed $firstData, mixed $secondData): mixed
     $keys = array_unique(array_merge($firstDataKey, $secondDataKey));
     $sortedKeys = sort($keys, fn ($left, $right) => strcmp($left, $right));
 
-    return array_map(function ($key) use ($firstData, $secondData) {
+    $diffLines = array_map(function ($key) use ($firstData, $secondData) {
+        $formatValue = function ($value) {
+            return is_bool($value) ? var_export($value, true) : $value;
+        };
+        
         if (!array_key_exists($key, $firstData)) {
-            return "- {$key}: {$secondData[$key]}";
+            return "    + {$key}: {$formatValue($secondData[$key])}";
         }
 
         if (!array_key_exists($key, $secondData)) {
-            return "+ {$key}: {$firstData[$key]}";
+            return "    - {$key}: {$formatValue($firstData[$key])}";
         }
 
-        if ($firstData === $secondData) {
-            return " {$key}: {$firstData[$key]}";
+        if ($firstData[$key] === $secondData[$key]) {
+            return "      {$key}: {$formatValue($firstData[$key])}";
         }
 
-        return "- {$key}: {$firstData[$key]}\n+ {$key}: {$secondData[$key]}";
+        return "    - {$key}: {$formatValue($firstData[$key])}\n    + {$key}: {$formatValue($secondData[$key])}";
     }, $sortedKeys);
 
-    
+    return "{\n" . implode("\n", $diffLines) . "\n}\n";
 }
 
-function genDiff(string $firstFile, string $secondFile)
+function genDiff(string $firstFile, string $secondFile): string
 {
     $data1 = json_decode(file_get_contents($firstFile), true);
     $data2 = json_decode(file_get_contents($secondFile), true);
