@@ -15,7 +15,7 @@ function generateDiff(mixed $firstData, mixed $secondData): mixed
         $formatValue = function ($value) {
             return is_bool($value) ? var_export($value, true) : $value;
         };
-        
+
         if (!array_key_exists($key, $firstData)) {
             return "    + {$key}: {$formatValue($secondData[$key])}";
         }
