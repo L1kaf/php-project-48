@@ -16,9 +16,12 @@ Class DifferTest extends TestCase
 
     public function testDiffer(): void
     {
-        $file1 = $this->getFixtureFullPatch('file1.json');
-        $file2 = $this->getFixtureFullPatch('file2.json');
-        $file3 = $this->getFixtureFullPatch('file3.json');
+        $fileOneJson = $this->getFixtureFullPatch('file1.json');
+        $fileTwoJson = $this->getFixtureFullPatch('file2.json');
+        $fileOneYml = $this->getFixtureFullPatch('file1.yml');
+        $fileTwoYml = $this->getFixtureFullPatch('file2.yml');
+        $fileOneYaml = $this->getFixtureFullPatch('file1.yaml');
+        $fileTwoYaml = $this->getFixtureFullPatch('file2.yaml');
 
         $expected1 = "{" . PHP_EOL
             . "    - follow: false" . PHP_EOL
@@ -37,24 +40,12 @@ Class DifferTest extends TestCase
             . "    + timeout: 50" . PHP_EOL
             . "    - verbose: true" . PHP_EOL
             . "}" . PHP_EOL; 
-            
-        $expected3 = "{" . PHP_EOL
-            . "    - follow: false" . PHP_EOL
-            . "    - host: hexlet.io" . PHP_EOL
-            . "    - proxy: 123.234.53.22" . PHP_EOL
-            . "    - timeout: 50" . PHP_EOL
-            . "}" . PHP_EOL;
 
-        $expected4 = "{" . PHP_EOL
-            . "    + follow: false" . PHP_EOL
-            . "    + host: hexlet.io" . PHP_EOL
-            . "    + proxy: 123.234.53.22" . PHP_EOL
-            . "    + timeout: 50" . PHP_EOL
-            . "}" . PHP_EOL; 
-
-        $this->assertEquals($expected1, genDiff($file1, $file2));
-        $this->assertEquals($expected2, genDiff($file2, $file1));
-        $this->assertEquals($expected3, genDiff($file1, $file3));
-        $this->assertEquals($expected4, genDiff($file3, $file1));
+        $this->assertEquals($expected1, genDiff($fileOneJson, $fileTwoJson));
+        $this->assertEquals($expected2, genDiff($fileTwoJson, $fileOneJson));
+        $this->assertEquals($expected1, genDiff($fileOneYml, $fileTwoYml));
+        $this->assertEquals($expected2, genDiff($fileTwoYml, $fileOneYml));
+        $this->assertEquals($expected1, genDiff($fileOneYaml, $fileTwoYaml));
+        $this->assertEquals($expected2, genDiff($fileTwoYaml, $fileOneYaml));
     }
 }
