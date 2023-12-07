@@ -6,4 +6,5 @@
 
 ### Asciinema recordings:
 ---
-* [GenDiffer](https://asciinema.org/a/TuYQMb9vEzw1l5tz9VzDp8DWI)
+* [Gendiff comparing json files](https://asciinema.org/a/TuYQMb9vEzw1l5tz9VzDp8DWI)
+* [Gendiff comparing yaml files](https://asciinema.org/a/GzC4jKF5sE5k1CNkfEXhHOcU8)
