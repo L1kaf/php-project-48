@@ -3,6 +3,7 @@
 namespace Differ\Differ;
 
 use function Functional\sort;
+use function Differ\Parsers\parseFile;
 
 function generateDiff(mixed $firstData, mixed $secondData): mixed
 {
@@ -36,8 +37,8 @@ function generateDiff(mixed $firstData, mixed $secondData): mixed
 
 function genDiff(string $firstFile, string $secondFile): string
 {
-    $data1 = json_decode(file_get_contents($firstFile), true);
-    $data2 = json_decode(file_get_contents($secondFile), true);
+    $data1 = parseFile($firstFile);
+    $data2 = parseFile($secondFile);
 
     return generateDiff($data1, $data2);
 }
