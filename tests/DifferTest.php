@@ -22,24 +22,14 @@ Class DifferTest extends TestCase
         $fileTwoYml = $this->getFixtureFullPatch('file2.yml');
         $fileOneYaml = $this->getFixtureFullPatch('file1.yaml');
         $fileTwoYaml = $this->getFixtureFullPatch('file2.yaml');
+        $fileThreeJson = $this->getFixtureFullPatch('file3.json');
+        $fileFourJson = $this->getFixtureFullPatch('file4.json');
+        $fileThreeYaml = $this->getFixtureFullPatch('file3.yaml');
+        $fileFourYaml = $this->getFixtureFullPatch('file4.yaml');
 
-        $expected1 = "{" . PHP_EOL
-            . "    - follow: false" . PHP_EOL
-            . "      host: hexlet.io" . PHP_EOL
-            . "    - proxy: 123.234.53.22" . PHP_EOL
-            . "    - timeout: 50" . PHP_EOL
-            . "    + timeout: 20" . PHP_EOL
-            . "    + verbose: true" . PHP_EOL
-            . "}" . PHP_EOL;
-
-        $expected2 = "{" . PHP_EOL
-            . "    + follow: false" . PHP_EOL
-            . "      host: hexlet.io" . PHP_EOL
-            . "    + proxy: 123.234.53.22" . PHP_EOL
-            . "    - timeout: 20" . PHP_EOL
-            . "    + timeout: 50" . PHP_EOL
-            . "    - verbose: true" . PHP_EOL
-            . "}" . PHP_EOL; 
+        $expected1 = file_get_contents($this->getFixtureFullPatch('TestFlatCompare1.txt'));
+        $expected2 = file_get_contents($this->getFixtureFullPatch('TestFlatCompare2.txt'));
+        $expected3 = file_get_contents($this->getFixtureFullPatch('TestRecursiveCompare.txt'));
 
         $this->assertEquals($expected1, genDiff($fileOneJson, $fileTwoJson));
         $this->assertEquals($expected2, genDiff($fileTwoJson, $fileOneJson));
@@ -47,5 +37,7 @@ Class DifferTest extends TestCase
         $this->assertEquals($expected2, genDiff($fileTwoYml, $fileOneYml));
         $this->assertEquals($expected1, genDiff($fileOneYaml, $fileTwoYaml));
         $this->assertEquals($expected2, genDiff($fileTwoYaml, $fileOneYaml));
+        $this->assertEquals($expected3, genDiff($fileThreeJson, $fileFourJson));
+        $this->assertEquals($expected3, genDiff($fileThreeYaml, $fileFourYaml));
     }
 }
