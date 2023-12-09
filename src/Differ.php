@@ -4,6 +4,7 @@ namespace Differ\Differ;
 
 use function Functional\sort;
 use function Differ\Parsers\parseFile;
+use function Differ\Formatter\formatFile;
 
 function generateDiff(mixed $firstData, mixed $secondData): mixed
 {
@@ -12,33 +13,60 @@ function generateDiff(mixed $firstData, mixed $secondData): mixed
     $keys = array_unique(array_merge($firstDataKey, $secondDataKey));
     $sortedKeys = sort($keys, fn ($left, $right) => strcmp($left, $right));
 
-    $diffLines = array_map(function ($key) use ($firstData, $secondData) {
-        $formatValue = function ($value) {
-            return is_bool($value) ? var_export($value, true) : $value;
-        };
+    return array_map(function ($key) use ($firstData, $secondData) {
+        $firstValue = $firstData[$key] ?? null;
+        $secondValue = $secondData[$key] ?? null;
 
         if (!array_key_exists($key, $firstData)) {
-            return "    + {$key}: {$formatValue($secondData[$key])}";
+            return [
+                "status" => "add",
+                "key" => $key,
+                'firstValue' => $secondValue,
+                "secondValue" => null
+            ];
         }
 
         if (!array_key_exists($key, $secondData)) {
-            return "    - {$key}: {$formatValue($firstData[$key])}";
+            return [
+                "status" => "delete",
+                "key" => $key,
+                "firstValue" => $firstValue,
+                "secondValue" => null
+            ];
         }
 
-        if ($firstData[$key] === $secondData[$key]) {
-            return "      {$key}: {$formatValue($firstData[$key])}";
+        if ($firstData[$key] === $secondValue) {
+            return [
+                "status" => "unchagne",
+                "key" => $key,
+                "firstValue" => $firstValue,
+                "secondValue" => null
+            ];
         }
 
-        return "    - {$key}: {$formatValue($firstData[$key])}\n    + {$key}: {$formatValue($secondData[$key])}";
+        if (is_array($firstValue) && is_array($secondValue)) {
+            return [
+                "status" => "nested",
+                "key" => $key,
+                "firstValue" => generateDiff($firstValue, $secondValue),
+                "secondValue" => null
+            ];
+        }
+
+        return [
+            "status" => "change",
+            "key" => $key,
+            "firstValue" => $firstValue,
+            "secondValue" => $secondValue
+        ];
     }, $sortedKeys);
-
-    return "{\n" . implode("\n", $diffLines) . "\n}\n";
 }
 
-function genDiff(string $firstFile, string $secondFile): string
+function genDiff(string $firstFile, string $secondFile, string $format = "stylish"): string
 {
     $data1 = parseFile($firstFile);
     $data2 = parseFile($secondFile);
 
-    return generateDiff($data1, $data2);
+    $diff = generateDiff($data1, $data2);
+    return formatFile($format, $diff);
 }
