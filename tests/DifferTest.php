@@ -30,6 +30,7 @@ Class DifferTest extends TestCase
         $expected1 = file_get_contents($this->getFixtureFullPatch('TestFlatCompare1.txt'));
         $expected2 = file_get_contents($this->getFixtureFullPatch('TestFlatCompare2.txt'));
         $expected3 = file_get_contents($this->getFixtureFullPatch('TestRecursiveCompare.txt'));
+        $expected4 = file_get_contents($this->getFixtureFullPatch('TestPlainCompare.txt'));
 
         $this->assertEquals($expected1, genDiff($fileOneJson, $fileTwoJson));
         $this->assertEquals($expected2, genDiff($fileTwoJson, $fileOneJson));
@@ -39,5 +40,6 @@ Class DifferTest extends TestCase
         $this->assertEquals($expected2, genDiff($fileTwoYaml, $fileOneYaml));
         $this->assertEquals($expected3, genDiff($fileThreeJson, $fileFourJson));
         $this->assertEquals($expected3, genDiff($fileThreeYaml, $fileFourYaml));
+        $this->assertEquals($expected4, genDiff($fileThreeYaml, $fileFourYaml, "plain"));
     }
 }
