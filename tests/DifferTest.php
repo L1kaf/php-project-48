@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 
 use function Differ\Differ\genDiff;
 
-сlass DifferTest extends TestCase
+class DifferTest extends TestCase
 {
     public function getFixtureFullPatch($fixtureName)
     {
