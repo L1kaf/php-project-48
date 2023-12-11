@@ -19,7 +19,7 @@ function generateDiff(mixed $firstData, mixed $secondData): mixed
 
         if (!array_key_exists($key, $firstData)) {
             return [
-                "status" => "add",
+                "status" => "added",
                 "key" => $key,
                 'firstValue' => $secondValue,
                 "secondValue" => null
@@ -28,7 +28,7 @@ function generateDiff(mixed $firstData, mixed $secondData): mixed
 
         if (!array_key_exists($key, $secondData)) {
             return [
-                "status" => "delete",
+                "status" => "deleted",
                 "key" => $key,
                 "firstValue" => $firstValue,
                 "secondValue" => null
@@ -37,7 +37,7 @@ function generateDiff(mixed $firstData, mixed $secondData): mixed
 
         if ($firstData[$key] === $secondValue) {
             return [
-                "status" => "unchagne",
+                "status" => "unchanged",
                 "key" => $key,
                 "firstValue" => $firstValue,
                 "secondValue" => null
@@ -54,7 +54,7 @@ function generateDiff(mixed $firstData, mixed $secondData): mixed
         }
 
         return [
-            "status" => "change",
+            "status" => "changed",
             "key" => $key,
             "firstValue" => $firstValue,
             "secondValue" => $secondValue

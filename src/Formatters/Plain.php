@@ -27,14 +27,14 @@ function formatPlain(mixed $array): string
             $patchKey = $previousKeys === "" ? "$key" : "$previousKeys.$key";
 
             switch ($status) {
-                case "add":
+                case "added":
                     $normalisedValue = normaliseValue($firstValue);
                     return "Property '$patchKey' was added with value: $normalisedValue";
-                case "delete":
+                case "deleted":
                     return "Property '$patchKey' was removed";
-                case "unchagne":
+                case "unchanged":
                     break;
-                case "change":
+                case "changed":
                     $normalisedValue1 = normaliseValue($firstValue);
                     $normalisedValue2 = normaliseValue($secondValue);
                     return "Property '$patchKey' was updated. From $normalisedValue1 to $normalisedValue2";

@@ -48,13 +48,13 @@ function formatStylish(mixed $array, int $spacesCount = 0): string
         $stringifySecondValue = stringify($secondValue, $spacesCount + 1);
 
         switch ($status) {
-            case "add":
+            case "added":
                 return "$indent  + $key: $stringifyFirstValue";
-            case "delete":
+            case "deleted":
                 return "$indent  - $key: $stringifyFirstValue";
-            case "unchagne":
+            case "unchanged":
                 return "$indent    $key: $stringifyFirstValue";
-            case "change":
+            case "changed":
                 return "$indent  - $key: $stringifyFirstValue\n$indent  + $key: $stringifySecondValue";
             case "nested":
                 $nestedValue = is_array($firstValue)
