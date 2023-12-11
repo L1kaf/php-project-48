@@ -8,10 +8,12 @@ function parseFile(string $filePath)
 {
     $fileContent = file_get_contents($filePath);
 
-    if (pathinfo($filePath, PATHINFO_EXTENSION) === "json") {
-        $decodedFile = json_decode($fileContent, true);
-    } else {
-        $decodedFile = Yaml::parse($fileContent);
+    if ($fileContent !== false) {
+        if (pathinfo($filePath, PATHINFO_EXTENSION) === "json") {
+            $decodedFile = json_decode($fileContent, true);
+        } else {
+            $decodedFile = Yaml::parse($fileContent);
+        }
+        return $decodedFile;
     }
-    return $decodedFile;
 }

@@ -2,7 +2,7 @@
 
 namespace Differ\Formatters\Stylish;
 
-function boolToString($value)
+function boolToString(mixed $value): mixed
 {
     return (is_bool($value) ? ($value ? "true" : "false") : $value);
 }

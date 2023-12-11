@@ -2,7 +2,7 @@
 
 namespace Differ\Formatters\Plain;
 
-function normaliseValue($value)
+function normaliseValue(mixed $value): string
 {
     if ($value === null) {
         return "null";
