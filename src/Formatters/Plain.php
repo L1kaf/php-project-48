@@ -2,9 +2,16 @@
 
 namespace Differ\Formatters\Plain;
 
-function boolToString($value)
+function normaliseValue($value)
 {
-    return (is_bool($value) ? ($value ? "true" : "false") : $value);
+    if ($value === null) {
+        return "null";
+    } elseif (is_array($value)) {
+        return "[complex value]";
+    } elseif (is_string($value)) {
+        return "'$value'";
+    }
+    return trim(var_export($value, true), "'");
 }
 
 function formatPlain(mixed $array): string
@@ -21,13 +28,16 @@ function formatPlain(mixed $array): string
     
             switch ($status) {
                 case "add":
-                    return "Property '$patchKey' was added with value: $secondValue";
+                    $normalisedValue = normaliseValue($firstValue);
+                    return "Property '$patchKey' was added with value: $normalisedValue";
                 case "delete":
                     return "Property '$patchKey' was removed";
                 case "unchagne":
                     break;
                 case "change":
-                    return "Property '$patchKey' was updated. From '$firstValue' to '$secondValue'";
+                    $normalisedValue1 = normaliseValue($firstValue);
+                    $normalisedValue2 = normaliseValue($secondValue);
+                    return "Property '$patchKey' was updated. From $normalisedValue1 to $normalisedValue2";
                 case "nested":
                     return $result($firstValue, $patchKey);
             }
