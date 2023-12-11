@@ -25,7 +25,7 @@ function formatPlain(mixed $array): string
             $secondValue = $value["secondValue"];
 
             $patchKey = $previousKeys === "" ? "$key" : "$previousKeys.$key";
-    
+
             switch ($status) {
                 case "add":
                     $normalisedValue = normaliseValue($firstValue);
@@ -42,7 +42,7 @@ function formatPlain(mixed $array): string
                     return $result($firstValue, $patchKey);
             }
         }, $node);
-    
+
         $filterArray = array_filter($formatArray);
         return implode("\n", $filterArray);
     };

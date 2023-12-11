@@ -21,7 +21,7 @@ function stringify(mixed $value, int $spacesCount = 1): string
         $indent = str_repeat("    ", $indentSize);
 
         $lines = array_map(
-            fn($key, $val) => "{$indent}    {$key}: {$iter($val, $depth + 1)}",
+            fn($key, $val) => "$indent    $key: {$iter($val, $depth + 1)}",
             array_keys($currentValue),
             $currentValue
         );
@@ -49,17 +49,17 @@ function formatStylish(mixed $array, int $spacesCount = 0): string
 
         switch ($status) {
             case "add":
-                return "{$indent}  + {$key}: {$stringifyFirstValue}";
+                return "$indent  + $key: $stringifyFirstValue";
             case "delete":
-                return "{$indent}  - {$key}: {$stringifyFirstValue}";
+                return "$indent  - $key: $stringifyFirstValue";
             case "unchagne":
-                return "{$indent}    {$key}: {$stringifyFirstValue}";
+                return "$indent    $key: $stringifyFirstValue";
             case "change":
-                return "{$indent}  - {$key}: {$stringifyFirstValue}\n{$indent}  + {$key}: {$stringifySecondValue}";
+                return "$indent  - $key: $stringifyFirstValue\n$indent  + $key: $stringifySecondValue";
             case "nested":
                 $nestedValue = is_array($firstValue)
                 ? formatStylish($firstValue, $spacesCount + 1) : stringify($firstValue);
-                return "{$indent}    {$key}: {$nestedValue}";
+                return "$indent    $key: $nestedValue";
         }
     }, $array);
 
