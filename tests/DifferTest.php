@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 
 use function Differ\Differ\genDiff;
 
-Class DifferTest extends TestCase
+сlass DifferTest extends TestCase
 {
     public function getFixtureFullPatch($fixtureName)
     {
@@ -25,7 +25,7 @@ Class DifferTest extends TestCase
         $expected2 = file_get_contents($this->getFixtureFullPatch('TestPlainCompare.txt'));
         $expected3 = file_get_contents($this->getFixtureFullPatch('TestJsonCompare.txt'));
 
-        $this->assertEquals($expected1, genDiff($fileOneJson, $fileTwoJson ));
+        $this->assertEquals($expected1, genDiff($fileOneJson, $fileTwoJson));
         $this->assertEquals($expected1, genDiff($fileOneYaml, $fileTwoYaml));
         $this->assertEquals($expected2, genDiff($fileOneJson, $fileTwoJson, "plain"));
         $this->assertEquals($expected3, genDiff($fileOneJson, $fileTwoJson, "json"));
