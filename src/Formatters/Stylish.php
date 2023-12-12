@@ -1,12 +1,12 @@
 <?php
 
 namespace Differ\Formatters\Stylish;
-
+// Вывод булевых значений
 function boolToString(mixed $value): mixed
 {
     return (is_bool($value) ? ($value ? "true" : "false") : $value);
 }
-
+// Структурирование вывода
 function stringify(mixed $value, int $spacesCount = 1): string
 {
     $iter = function ($currentValue, $depth) use (&$iter, $spacesCount) {

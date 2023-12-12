@@ -1,7 +1,7 @@
 <?php
 
 namespace Differ\Formatters\Plain;
-
+// Нормализация значений
 function normaliseValue(mixed $value): string
 {
     if ($value === null) {
@@ -18,14 +18,14 @@ function formatPlain(mixed $array): string
 {
     $result = function (array $node, string $previousKeys = '') use (&$result) {
         $formatArray = array_map(function ($value) use ($result, $previousKeys) {
-
+            // Присвоение значений
             $status = $value["status"];
             $key = $value["key"];
             $firstValue = $value["firstValue"];
             $secondValue = $value["secondValue"];
 
             $patchKey = $previousKeys === "" ? "$key" : "$previousKeys.$key";
-
+            // Форматирование текста согласно статусам
             switch ($status) {
                 case "added":
                     $normalisedValue = normaliseValue($firstValue);

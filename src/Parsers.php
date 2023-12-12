@@ -3,7 +3,7 @@
 namespace Differ\Parsers;
 
 use Symfony\Component\Yaml\Yaml;
-
+// Выбор расширения файла
 function parseFile(string $filePath)
 {
     $fileContent = file_get_contents($filePath);

@@ -5,7 +5,7 @@ namespace Differ\Formatter;
 use function Differ\Formatters\Stylish\formatStylish;
 use function Differ\Formatters\Plain\formatPlain;
 use function Differ\Formatters\Json\formatJson;
-
+// Выбор формата файла
 function formatFile(string $format, mixed $diff): string
 {
     if ($format === "stylish") {

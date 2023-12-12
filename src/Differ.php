@@ -12,7 +12,7 @@ function generateDiff(mixed $firstData, mixed $secondData): mixed
     $secondDataKey = array_keys($secondData);
     $keys = array_unique(array_merge($firstDataKey, $secondDataKey));
     $sortedKeys = sort($keys, fn ($left, $right) => strcmp($left, $right));
-
+    // Делаем статусы согласно их совпадению с другим файлом
     return array_map(function ($key) use ($firstData, $secondData) {
         $firstValue = $firstData[$key] ?? null;
         $secondValue = $secondData[$key] ?? null;
@@ -61,7 +61,7 @@ function generateDiff(mixed $firstData, mixed $secondData): mixed
         ];
     }, $sortedKeys);
 }
-
+// Основная фукнция
 function genDiff(string $firstFile, string $secondFile, string $format = "stylish"): string
 {
     $data1 = parseFile($firstFile);
