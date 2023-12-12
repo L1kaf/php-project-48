@@ -1,6 +1,7 @@
 <?php
 
 namespace Differ\Formatters\Plain;
+
 // Нормализация значений
 function normaliseValue(mixed $value): string
 {

@@ -1,6 +1,7 @@
 <?php
 
 namespace Differ\Formatters\Json;
+
 // Вывод в json формате
 function formatJson(mixed $array): string
 {

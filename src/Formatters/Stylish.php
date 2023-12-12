@@ -1,6 +1,7 @@
 <?php
 
 namespace Differ\Formatters\Stylish;
+
 // Вывод булевых значений
 function boolToString(mixed $value): mixed
 {
