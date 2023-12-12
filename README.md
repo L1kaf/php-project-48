@@ -15,7 +15,6 @@ Utility features:
 * Support for different input formats: yaml and json
 * Report generation in plain text, stylish and json formats
 
-Translated with DeepL.com (free version)
 ### System Requirements:
 ---
 * OS Windows/Linux;
